@@ -1,2 +1,2 @@
 # LeetCode
-Solved pros in LeetCode.
+Solved pros on LeetCode.
