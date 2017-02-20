@@ -47,7 +47,8 @@ public:
 		return subsetSum(nums,(S+sum)/2);
     }
 	int subsetSum(vector<int> nums,int S){
-		int dp[S+1]={0};
+		//注意此处的数组为变量的，由于数据量不确定，私以为这样做还是不太合适的
+	        int dp[S+1]={0};
 		dp[0] = 1;
 		int len = nums.size();
 		for( int i = 0; i < len; i++ ){
