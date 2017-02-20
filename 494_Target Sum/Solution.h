@@ -30,3 +30,31 @@ public:
         return ;
     }
 };
+
+class Solution {
+private:
+    int res,len,target; 
+public:
+    int findTargetSumWays(vector<int>& nums, int S) {
+        int sum = 0;
+		int len = nums.size();
+		for( int i = 0; i < len; i++ ){
+			sum += nums[i];
+		}
+		if( sum<S || (sum+S)%2==1 ){
+			return 0;
+		}
+		return subsetSum(nums,(S+sum)/2);
+    }
+	int subsetSum(vector<int> nums,int S){
+		int dp[S+1]={0};
+		dp[0] = 1;
+		int len = nums.size();
+		for( int i = 0; i < len; i++ ){
+			for( int j = S; j >= nums[i]; j-- ){
+				dp[j] += dp[j-nums[i]];
+			} 
+		}
+		return dp[S];
+	}
+};
