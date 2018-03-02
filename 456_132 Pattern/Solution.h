@@ -30,3 +30,31 @@ private:
         return false;
     }
 };
+
+
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        if (nums.size()<3) {
+            return false;
+        }
+        stack<int> sta;
+        int s3 = NULL;
+        for(int i = nums.size()-1; i >= 0; i--){
+            if (s3!=NULL && s3>nums[i]) {
+                return true;
+            }
+            while(!sta.empty()){
+                int cur = sta.top();
+                if (nums[i]>cur) {
+                    s3 = s3==NULL?cur:max(s3,cur);
+                    sta.pop();
+                } else {
+                    break;
+                }
+            }
+            sta.push(nums[i]);
+        }
+        return false;
+    }
+};
