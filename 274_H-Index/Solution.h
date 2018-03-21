@@ -22,3 +22,29 @@ public:
         return 0;
     }
 };
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int left = 0;
+        int right = citations.size()+1;
+        while(left<right-1){
+            int mid = (left+right)/2;
+            if (check(mid, citations)) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+private:
+    bool check(int bar, vector<int> citations){
+        int num = 0;
+        for(int i = 0; i < citations.size(); i++){
+            if (citations[i]>=bar) {
+                num++;
+            }
+        }
+        return num>=bar;
+    }
+};
