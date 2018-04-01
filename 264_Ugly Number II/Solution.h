@@ -1,6 +1,6 @@
 #two points for this question:
 #1. Set is ordered by the less function, and iterator won't change after inset.https://blog.csdn.net/wallaceli1981/article/details/4723478
-#2. This is a dp problem. every time we have three choice. *2,*3,*5 and they are overlapping.
+#2. This is a dp problem. every time we have three choice. r[i]*2,r[j]*3,r[k]*5 and they are overlapping.
 class Solution {
 public:
     int nthUglyNumber(int n) {
