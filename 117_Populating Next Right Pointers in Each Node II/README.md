@@ -1,4 +1,5 @@
 利用dfs可以实现题目要求的constant space，技巧在于先把右边的安排好。
+```
 /**
  * Definition for binary tree with next pointer.
  * struct TreeLinkNode {
@@ -39,3 +40,4 @@ public:
         return ;
     }
 };
+```
