@@ -1,3 +1,4 @@
+枚举二进制数字的方法比较简单，但是没有位运算速度太慢了。
 ```
 class Solution {
 public:
@@ -53,4 +54,101 @@ private:
         return sum==0?ans:"";
     }
 };
+```
+```
+/**
+ * Return an array of size *returnSize.
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+
+int checkValidPara(unsigned int hex)
+{
+    int balanceCount = 0;
+   // printf("\n %x", hex);
+    unsigned int mask = 1;
+    while (hex)
+    {
+        unsigned int lsb =  (hex & mask);
+        hex &= ~mask;
+        mask <<= 1;
+        //printf("\n %x", lsb);
+        // closing bracket
+        if (lsb && (balanceCount == 0))
+        {
+            // opening bracket seen at the end, not balanced
+            return 0;
+        } else if (lsb == 0)
+        {
+            balanceCount++;
+        } else if (lsb && balanceCount)
+        {
+            balanceCount--;
+        }
+    }
+    if (balanceCount == 0)
+    {
+        return 1;
+    }
+    return 0;
+}
+char** generateParenthesis(int n, int* returnSize) {
+    unsigned int array[(1 << n*2)/2 + 1], validCount, paranthesisHex;
+    unsigned int parHex;
+    int i;
+    if (n == 0) return 0;
+    for (i = 0; i < ((1 << n*2)/2 + 1); i++)
+    {
+        array[i] = 0;
+    }
+    validCount = 0;
+    parHex = 1 << (n*2-1);
+    //parHex = 0x2a;
+    printf("\n %x", parHex);
+    while (parHex < (1 << (n*2)))
+    {
+        if (checkValidPara(parHex))
+        {
+            array[validCount] = parHex;
+            printf("\n Valid  = %x", parHex);
+            validCount++;
+        }
+        parHex += 1;
+    }
+    if (validCount)
+    {
+        char **cppAr = (char**)malloc(sizeof(char*) * validCount);
+        if (cppAr == NULL)
+            return 0;
+        printf("\n error here1");
+        *returnSize = 0;
+        for (i = 0; i < validCount; i++)
+        {
+            char *p = (char*) malloc(sizeof(char) * (n * 2 + 1));
+            if (p == NULL)
+                return 0;
+            int k = 0;
+            unsigned int j = 1 << (n *2 - 1);
+                    printf("\n error here2");
+            while (j)
+            {
+                if (array[i]&j)
+                {
+                    p[k++]= '(';
+                }else
+                {
+                    p[k++] = ')';
+                }
+                j >>= 1;
+            }
+            p[k] = 0;
+    printf("\n %s", p);
+            *(cppAr+*returnSize) = p;
+            *returnSize+=1;
+                    printf("\n error here4");
+        }
+                printf("\n error here5");
+        return cppAr;
+    }
+    return 0;
+}
 ```
