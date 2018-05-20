@@ -1,0 +1,29 @@
+https://leetcode.com/contest/weekly-contest-85/problems/similar-string-groups/
+这道题目还是比较简单的，并查集去求解。比赛的时候没有时间写了。
+```
+class Solution {
+public:
+    int numSimilarGroups(vector<string>& A) {
+        map<string, string> father;
+        for(int i = 0; i < A.size(); i++){
+            father[A[i]] = A[i];
+        }
+        for(int i = 0; i < A.size(); i++){
+            for(int j = 0; j < i; j++){
+                if (checkSimilar(A[i],A[j])) {
+                    si = father[A[i]];
+                    sj = father[A[j]];
+                    if (si != sj) {
+                        uinon(A[i],A[j]);
+                    }
+                }
+            }
+        }
+        set<string> res;
+        for(int i = 0; i < A.size(); i++){
+            res.insert(father[A[i]]);
+        }
+        return res.size();
+    }
+};
+```
