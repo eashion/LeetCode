@@ -49,3 +49,34 @@ private:
     }
 };
 ```
+Other's solution:
+```
+public String shortestCompletingWord(String licensePlate, String[] words) {
+        int[] occurs = new int[26];
+        fillFreq(licensePlate, occurs);
+        int minLen = Integer.MAX_VALUE;
+        String res = null;
+        for(String w : words){
+            if(IsFound(w, occurs))
+                if(w.length() < minLen){
+                    minLen = w.length();
+                    res = w;
+                }
+        }
+        return res;
+    }
+    private void fillFreq(String w, int[] occurs){
+        for(char ch : w.toCharArray())
+            if( ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z'))
+                    occurs[Character.toLowerCase(ch)-'a']++;
+    }
+    private boolean IsFound(String w, int[] occurs){
+        int[] found = new int[26];
+        fillFreq(w, found);
+        for(int i=0; i < occurs.length; i++)
+            if(occurs[i] != 0 && occurs[i] > found[i]){
+                return false;
+            }
+        return true;
+    }
+```
