@@ -5,6 +5,7 @@ we traversal all path from src to dst, use dist array to optimize, for each lvl,
 only use the shortest to update update the other nodes. Once we achieve the dst, it' garanteed to be optimal.
 3. Simple DP
 record the lvl, use opt[i][k-1] update opt[j][i]
+How can I choosed the most complicate one to implement???
 ```
 class Solution {
 public:
@@ -104,4 +105,41 @@ public:
         return res==INT_MAX ? -1 : res;
     }
 };
+```
+
+```
+class Solution {
+	class City{
+		int id;
+		int steps;
+		int costs;
+
+		public City(int id, int steps, int costs) {
+			this.id = id;
+			this.steps = steps;
+			this.costs = costs;
+		}
+	}
+	public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+		int [] visited = new int[n]; // 1 if visited
+		Arrays.fill(visited, 0);
+		PriorityQueue<City> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o.costs));
+		queue.add(new City(src, 0, 0));
+		while(!queue.isEmpty()){
+			City next = queue.poll();
+			if(next.id == dst){
+				return next.costs;
+			}
+			visited[next.id] = 1;
+			if(next.steps < K+1){  // if the city reach max steps
+				for (int[] flight : flights) {
+					if (flight[0] == next.id && visited[flight[1]] == 0) { // if not visited
+						queue.add(new City(flight[1], next.steps+1, next.costs+flight[2]));
+					}
+				}
+			}
+		}
+		return -1;
+	}
+}
 ```
